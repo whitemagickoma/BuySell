@@ -6,6 +6,7 @@ import org.example.buysell.models.User;
 import org.example.buysell.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -33,8 +34,9 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @GetMapping("/hello")
-    public String securityUrl() {
-        return "hello";
+    @GetMapping("/user/{id}")
+    public String userInfo(@PathVariable("user") User user, Model model) {
+        model.addText("user");
+        return "user-info";
     }
 }
