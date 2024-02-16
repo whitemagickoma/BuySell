@@ -1,6 +1,6 @@
 package org.example.buysell.controllers;
 
-import ch.qos.logback.core.model.Model;
+import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;
 import org.example.buysell.models.User;
 import org.example.buysell.services.UserService;
@@ -28,15 +28,16 @@ public class UserController {
     @PostMapping("/registration")
     public String createUser(User user, Model model) {
         if (!userService.createUser(user)) {
-            model.addText("Пользователь с email: " + user.getEmail() + "уже существует");
+            model.addAttribute("Пользователь с email: " + user.getEmail() + "уже существует");
             return "registration";
         }
         return "redirect:/login";
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/user/{user}")
     public String userInfo(@PathVariable("user") User user, Model model) {
-        model.addText("user");
+        model.addAttribute("user", user);
+        model.addAttribute("products", user.getProducts());
         return "user-info";
     }
 }
